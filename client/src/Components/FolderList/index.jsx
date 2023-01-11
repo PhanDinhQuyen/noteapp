@@ -26,7 +26,12 @@ export default function FolderList({ folders }) {
     >
       {folders.map(({ id, name }) => (
         <Link key={id} to={`folders/${id}`} onClick={() => setActiveId(id)}>
-          <Card sx={{ mb: "0.5rem", bgcolor: activeId === id ? "red" : null }}>
+          <Card
+            sx={{
+              mb: "0.5rem",
+              bgcolor: activeId === id ? "rgb(255 211 140)" : null,
+            }}
+          >
             <CardContent
               sx={{
                 "&:last-child": {

@@ -1,20 +1,12 @@
 import { Grid, Typography, Box, Card, CardContent, List } from "@mui/material";
-import { Link, Outlet, useParams } from "react-router-dom";
-import { useState } from "react";
+import { Link, Outlet, useLoaderData, useParams } from "react-router-dom";
 function NoteList() {
   const { noteId } = useParams();
-  const [activeId, setActiveId] = useState(noteId);
-  console.log(["NoteList"], noteId);
-
-  const folder = {
-    notes: [
-      {
-        id: "1",
-        content:
-          "  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate laboriosam quo soluta nesciunt, porro consequatur nihil mollitia optio architecto dicta.</p>",
-      },
-    ],
-  };
+  const data = useLoaderData()?.folder || [];
+  console.log(
+    ["NoteList"],
+    data.notes.find(({ id }) => id === noteId)
+  );
   return (
     <Grid height='100%' container>
       <Grid
@@ -34,10 +26,13 @@ function NoteList() {
             </Box>
           }
         >
-          {folder.notes.map(({ id, content }) => (
-            <Link key={id} to={`note/${id}`} onClick={() => setActiveId(id)}>
+          {data.notes.map(({ id, content }) => (
+            <Link key={id} to={`note/${id}`}>
               <Card
-                sx={{ mb: "0.5rem", bgcolor: activeId === id ? "red" : null }}
+                sx={{
+                  mb: "0.5rem",
+                  bgcolor: noteId === id ? "rgb(255 211 140)" : null,
+                }}
               >
                 <CardContent
                   sx={{
@@ -47,10 +42,10 @@ function NoteList() {
                     padding: "0.5rem",
                   }}
                 >
-                  <Typography variant='p' color='initial'>
+                  <Typography textAlign='left' variant='p' color='initial'>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: `${content.substring(0, 25) || "Empty!"}...`,
+                        __html: `${content.substring(0, 10) || "Empty!"}`,
                       }}
                     />
                   </Typography>
@@ -61,7 +56,7 @@ function NoteList() {
         </List>
       </Grid>
       <Grid xs={8} item>
-        <Outlet />
+        <Outlet context={data.notes.find(({ id }) => id === noteId)} />
       </Grid>
     </Grid>
   );

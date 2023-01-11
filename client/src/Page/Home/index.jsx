@@ -1,8 +1,10 @@
 import { Typography, Box, Grid } from "@mui/material";
 import UserMenu from "../../Components/UserMenu";
 import FolderList from "../../Components/FolderList";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 export default function HomePage() {
+  const data = useLoaderData();
+  console.log(["HomePage"], data);
   return (
     <>
       <Typography variant='h4'>Note App</Typography>
@@ -15,18 +17,7 @@ export default function HomePage() {
         height='50vh'
       >
         <Grid xs={3} item>
-          <FolderList
-            folders={[
-              {
-                id: "1",
-                name: "Plaint text",
-              },
-              {
-                id: "2",
-                name: "New Folder",
-              },
-            ]}
-          />
+          <FolderList folders={data.folders} />
         </Grid>
         <Grid xs={9} item>
           <Outlet />

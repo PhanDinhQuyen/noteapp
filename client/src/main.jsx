@@ -5,7 +5,7 @@ import { Container } from "@mui/system";
 
 import GlobalStyle from "./Components/GlobalStyle";
 import router from "./Router";
-import "./firebase/index";
+import "./firebase";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
