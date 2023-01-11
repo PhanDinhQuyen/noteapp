@@ -18,6 +18,12 @@ async function main() {
     name: String,
     createdAt: String,
     author: Author,
+    notes: [Note]
+  }
+
+  type Note {
+    id: String,
+    content: String
   }
 
   type Author {
@@ -27,6 +33,7 @@ async function main() {
 
   type Query {
     folders: [Folder],
+    folder(folderId: String): Folder 
   }
 `;
 
@@ -34,11 +41,22 @@ async function main() {
   const resolvers = {
     Query: {
       folders: () => data.folders,
+      folder: (_, args) => {
+        const folderId = args.folderId;
+        console.log(folderId);
+        return data.folders.find((folder) => folder.id === folderId);
+      },
+      // note: (parent, args) => {},
     },
     Folder: {
-      author: (parent, args) => {
+      author: (parent) => {
         const authorId = parent.authorId;
         return data.authors.find((auth) => auth.id === authorId);
+      },
+      notes: (parent, args) => {
+        console.log(["parent"], parent);
+        // return [];
+        return data.notes.filter((note) => note.folderId === parent.id);
       },
     },
   };
@@ -54,7 +72,7 @@ async function main() {
   });
   await server.start();
 
-  app.use(morgan("combined"));
+  // app.use(morgan("combined"));
   app.use(
     express.urlencoded({
       extended: true,
@@ -65,8 +83,9 @@ async function main() {
     origin: process.env.CLIENT_URL,
     credentials: true,
   };
-
-  app.use(cors(corsOptions), express.json(), expressMiddleware(server));
+  console.log(corsOptions);
+  app.use(cors(corsOptions));
+  app.use(express.json(), expressMiddleware(server));
 
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000`);
