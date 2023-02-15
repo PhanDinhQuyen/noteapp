@@ -38,6 +38,7 @@ const resolvers = {
       await newFolder.save();
       return newFolder;
     },
+    addNote: async () => {},
     addAuthor: async (_, args) => {
       console.log("Running addAuthor");
       const { uid, name } = args;
