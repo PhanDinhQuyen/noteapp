@@ -1,12 +1,12 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import AuthProvider from "../context/AuthProvider";
+import AuthProvider from "../contexts/AuthProvider";
 
-import Home from "../page/Home";
-import Login from "../page/Login";
-import ErrorPage from "../Page/Error";
-import NoteList from "../Components/NoteList";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import ErrorPage from "../pages/Error";
+import NoteList from "../components/NoteList";
 import ProtectedRoute from "./ProtectedRoute";
-import Note from "../Components/Note";
+import Note from "../components/Note";
 import loaderData from "../utils/loader";
 const AuthLayout = () => {
   return (

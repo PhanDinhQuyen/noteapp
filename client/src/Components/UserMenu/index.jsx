@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 import { Avatar, Box, Menu, Typography, MenuItem } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";

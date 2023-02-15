@@ -1,6 +1,7 @@
 import { Card, List, CardContent, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import NewFolder from "../NewFolder";
 
 export default function FolderList({ folders }) {
   const { folderId } = useParams();
@@ -17,14 +18,20 @@ export default function FolderList({ folders }) {
         backgroundColor: "#7D9D9C",
       }}
       subheader={
-        <Box>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          gap='0.5rem'
+          alignItems='center'
+        >
           <Typography fontWeight='500' color='white'>
             Folders
           </Typography>
+          <NewFolder />
         </Box>
       }
     >
-      {folders.map(({ id, name }) => (
+      {(folders || []).map(({ id, name }) => (
         <Link key={id} to={`folders/${id}`} onClick={() => setActiveId(id)}>
           <Card
             sx={{

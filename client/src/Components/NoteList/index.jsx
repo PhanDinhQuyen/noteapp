@@ -3,10 +3,6 @@ import { Link, Outlet, useLoaderData, useParams } from "react-router-dom";
 function NoteList() {
   const { noteId } = useParams();
   const data = useLoaderData()?.folder || [];
-  console.log(
-    ["NoteList"],
-    data.notes.find(({ id }) => id === noteId)
-  );
   return (
     <Grid height='100%' container>
       <Grid
@@ -26,7 +22,7 @@ function NoteList() {
             </Box>
           }
         >
-          {data.notes.map(({ id, content }) => (
+          {(data?.notes || []).map(({ id, content }) => (
             <Link key={id} to={`note/${id}`}>
               <Card
                 sx={{
@@ -55,8 +51,8 @@ function NoteList() {
           ))}
         </List>
       </Grid>
-      <Grid xs={8} item>
-        <Outlet context={data.notes.find(({ id }) => id === noteId)} />
+      <Grid p='0.5rem' xs={8} item>
+        <Outlet context={(data?.notes || []).find(({ id }) => id === noteId)} />
       </Grid>
     </Grid>
   );

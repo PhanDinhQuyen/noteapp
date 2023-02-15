@@ -1,18 +1,9 @@
 import * as httpRequest from "./httpRequest";
+import { queries } from "./query";
 
 const loaderData = {
   noteListLoader: async ({ params: { folderId } }) => {
-    const query = `query Folder($folderId: String) {
-                   folder(folderId: $folderId) {
-                    id
-                    name
-                    createdAt
-                    notes {
-                      content
-                      id
-                      }
-                    }
-                  }`;
+    const query = queries.noteListLoaderQuery;
 
     const data = await httpRequest.post("graphql", {
       query,
@@ -23,13 +14,7 @@ const loaderData = {
     return data;
   },
   homeLoader: async () => {
-    const query = `query Folders {
-                   folders {
-                      createdAt
-                      id
-                      name
-                      }
-                   }`;
+    const query = queries.homeLoaderQuery;
 
     const data = await httpRequest.post("graphql", { query });
     return data;
