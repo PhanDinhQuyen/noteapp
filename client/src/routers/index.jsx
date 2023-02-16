@@ -4,10 +4,12 @@ import AuthProvider from "../contexts/AuthProvider";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ErrorPage from "../pages/Error";
+
 import NoteList from "../components/NoteList";
 import ProtectedRoute from "./ProtectedRoute";
 import Note from "../components/Note";
 import loaderData from "../utils/loader";
+
 const AuthLayout = () => {
   return (
     <AuthProvider>

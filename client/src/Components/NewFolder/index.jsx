@@ -8,20 +8,21 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { CreateNewFolderOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 import { useMemo } from "react";
-import requestAddNewFolder from "./request";
+import { useEffect, useState } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { CreateNewFolderOutlined } from "@mui/icons-material";
+
+import { addNewFolder } from "../../utils/folderUtils";
 
 export default function NewFolder() {
   const matches = useMediaQuery("(max-width:600px)");
   const [newFolderName, setNewFolderName] = useState("");
   const [open, setOpen] = useState(false);
-
   const [searchParams, setSearchParams] = useSearchParams();
+
   const popupName = searchParams.get("popup");
   const navigate = useNavigate();
   const styleTextField = useMemo(() => {
@@ -41,8 +42,8 @@ export default function NewFolder() {
   };
   const handleSaveFolder = async () => {
     handleClose();
-    const addFolder = await requestAddNewFolder(newFolderName);
-    console.log(addFolder);
+    const newFolder = await addNewFolder(newFolderName);
+    console.log(newFolder);
   };
 
   useEffect(() => {

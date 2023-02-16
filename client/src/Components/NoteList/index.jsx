@@ -1,8 +1,23 @@
-import { Grid, Typography, Box, Card, CardContent, List } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  List,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+
+import { NoteAddOutlined } from "@mui/icons-material";
 import { Link, Outlet, useLoaderData, useParams } from "react-router-dom";
+
 function NoteList() {
   const { noteId } = useParams();
   const data = useLoaderData()?.folder || [];
+
+  const handleAddNewNote = () => {};
+
   return (
     <Grid height='100%' container>
       <Grid
@@ -15,10 +30,19 @@ function NoteList() {
       >
         <List
           subheader={
-            <Box>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
               <Typography fontWeight='bold' variant='h6' color='initial'>
                 Notes
               </Typography>
+              <Tooltip title='Add Note' onClick={handleAddNewNote}>
+                <IconButton size='small'>
+                  <NoteAddOutlined />
+                </IconButton>
+              </Tooltip>
             </Box>
           }
         >

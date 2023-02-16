@@ -1,10 +1,11 @@
 import { Typography, Box, Grid } from "@mui/material";
+import { Outlet, useLoaderData } from "react-router-dom";
+
 import UserMenu from "../../components/UserMenu";
 import FolderList from "../../components/FolderList";
-import { Outlet, useLoaderData } from "react-router-dom";
+
 export default function HomePage() {
   const data = useLoaderData();
-  console.log(["HomePage"], data);
   return (
     <>
       <Typography variant='h4'>Note App</Typography>

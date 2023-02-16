@@ -1,8 +1,9 @@
-import { Typography, Button } from "@mui/material";
-import axios from "axios";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { Navigate } from "react-router-dom";
-import requestLogin from "./request";
+import { Typography, Button } from "@mui/material";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+
+import * as httpRequest from "../../utils/httpRequest";
+
 export default function LoginPage() {
   const auth = getAuth();
 
@@ -10,10 +11,27 @@ export default function LoginPage() {
     const provider = new GoogleAuthProvider();
 
     const { user } = await signInWithPopup(auth, provider);
-    console.log(user);
     const { displayName, uid, accessToken } = user;
-    const data = await requestLogin(displayName, uid, accessToken);
-    console.log("register", { data });
+    const data = await httpRequest.post(
+      {
+        query: `mutation Mutation($uid: String!, $name: String!) {
+          addAuthor(uid: $uid, name: $name) {
+            name
+            uid
+          }
+        }`,
+        variables: {
+          name: displayName,
+          uid: uid,
+        },
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    );
+    console.log(data);
   };
 
   if (localStorage.getItem("accessToken")) {

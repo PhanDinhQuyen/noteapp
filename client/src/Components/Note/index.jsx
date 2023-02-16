@@ -5,14 +5,16 @@ import {
   convertFromHTML,
   convertToRaw,
 } from "draft-js";
+
 import draftToHtml from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useOutletContext } from "react-router-dom";
-// import { useLoaderData } from "react-router-dom";
+
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 function Note() {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const note = useOutletContext();
+  // eslint-disable-next-line no-unused-vars
   const [rawHTML, setRawHTML] = useState(note.content);
 
   const [editorState, setEditorState] = useState(() =>
@@ -25,7 +27,6 @@ function Note() {
       blocksFormHTML.entityMap
     );
     setEditorState(EditorState.createWithContent(state));
-    console.log(["Re-render"]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note]);
 

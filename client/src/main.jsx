@@ -1,11 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
 import { Container } from "@mui/system";
+import { RouterProvider } from "react-router-dom";
 
-import GlobalStyle from "./components/GlobalStyle";
-import router from "./routers";
 import "./firebase";
+import router from "./routers";
+import GlobalStyle from "./components/GlobalStyle";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>

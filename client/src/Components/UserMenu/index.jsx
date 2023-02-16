@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthProvider";
-import { Avatar, Box, Menu, Typography, MenuItem } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import { Avatar, Box, Menu, Typography, MenuItem } from "@mui/material";
+
+import { AuthContext } from "../../contexts/AuthProvider";
+
 function UserMenu() {
   const [user] = useContext(AuthContext).user;
   const { displayName, photoURL, auth } = user;
@@ -13,6 +15,7 @@ function UserMenu() {
     auth.signOut();
     window.location.assign("/login");
   };
+
   return (
     <>
       <Box
