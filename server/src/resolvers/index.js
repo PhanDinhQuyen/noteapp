@@ -1,4 +1,5 @@
 import { Authors, Folders, Notes } from "../models/index.js";
+
 const resolvers = {
   Query: {
     folders: async (parent, args, context) => {
@@ -16,10 +17,10 @@ const resolvers = {
       return folder;
     },
   },
+
   Folder: {
     author: async (parent) => {
       const authorId = parent.authorId;
-      console.log(authorId);
       const author = await Authors.findOne({
         uid: authorId,
       });
@@ -30,19 +31,25 @@ const resolvers = {
       return notes;
     },
   },
+
   Mutation: {
     addFolder: async (parent, args, context) => {
       if (!context?.uid) return;
-      console.log(context.uid);
       const newFolder = new Folders({ ...args, authorId: context.uid });
       await newFolder.save();
       return newFolder;
     },
-    addNote: async () => {},
+    removeFolder: async (parent, args) => {
+      const folderRemove = await Folders.findByIdAndRemove(args.id);
+      return folderRemove;
+    },
+    addNote: async (parent, args) => {
+      const newNote = new Notes({ ...args });
+      await newNote.save();
+      return newNote;
+    },
     addAuthor: async (_, args) => {
-      console.log("Running addAuthor");
       const { uid, name } = args;
-      // console.log(uid, name);
       const author = await Authors.findOne({
         uid: uid,
       });

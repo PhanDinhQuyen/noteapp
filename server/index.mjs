@@ -1,12 +1,14 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import express from "express";
+
 import http from "http";
 import cors from "cors";
 import morgan from "morgan";
-import * as dotenv from "dotenv";
+import express from "express";
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
 import { typeDefs } from "./src/typeDefs/index.js";
 import resolvers from "./src/resolvers/index.js";
 import { jwtAuth } from "./src/middlewares/jwt.google.js";
@@ -34,7 +36,7 @@ app.use(express.json());
 app.use(
   jwtAuth,
   expressMiddleware(server, {
-    context: async ({ req, res }) => {
+    context: async ({ res }) => {
       return {
         uid: res.locals.uid,
       };

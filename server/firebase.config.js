@@ -1,5 +1,6 @@
-import { initializeApp } from "firebase-admin/app";
 import dotenv from "dotenv";
+import { initializeApp } from "firebase-admin/app";
+
 dotenv.config();
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
